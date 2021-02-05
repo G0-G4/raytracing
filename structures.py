@@ -1,5 +1,13 @@
 import numpy as np
-from math import cos, sin
+
+
+'''
+functions for creating points and vector ( both are np.arrays with different 4th component)
+and functions for processing them
+
+(I could have used "np.array" as a parent class, but there are some difficulties with it, so i decided to use 
+"np.array" as it is, but mimmicking creation of point and vector by using simple factory functions)
+'''
 
 def equal(a: float, b: float, eps: float = 0.001) -> bool:
     return abs(a - b) < eps
@@ -41,22 +49,22 @@ def scaling(x: float, y: float, z: float) -> np.array:
 
 
 def rotationX(r: float) -> np.array:
-    tmp = np.diag([1., cos(r), cos(r), 1.])
-    s = sin(r)
+    tmp = np.diag([1., np.cos(r), np.cos(r), 1.])
+    s = np.sin(r)
     tmp[2][1] = s
     tmp[1][2] = -s
     return tmp
 
 def rotationY(r: float) -> np.array:
-    tmp = np.diag([cos(r), 1., cos(r), 1.])
-    s = sin(r)
+    tmp = np.diag([np.cos(r), 1., np.cos(r), 1.])
+    s = np.sin(r)
     tmp[0][2] = s
     tmp[2][0] = -s
     return tmp
 
 def rotationZ(r: float) -> np.array:
-    tmp = np.diag([cos(r), cos(r), 1., 1.])
-    s = sin(r)
+    tmp = np.diag([np.cos(r), np.cos(r), 1., 1.])
+    s = np.sin(r)
     tmp[0][1] = -s
     tmp[1][0] = s
     return tmp
@@ -70,3 +78,7 @@ def shearing(xy: float, xz: float, yx: float, yz: float, zx: float, zy: float) -
     tmp[2][0] = zx
     tmp[2][1] = zy
     return tmp
+
+
+def intersect(fig, ray):
+    return fig.__intersect__(ray)
