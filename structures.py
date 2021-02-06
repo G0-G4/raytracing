@@ -78,7 +78,3 @@ def shearing(xy: float, xz: float, yx: float, yz: float, zx: float, zy: float) -
     tmp[2][0] = zx
     tmp[2][1] = zy
     return tmp
-
-
-def intersect(fig, ray):
-    return fig.__intersect__(ray)

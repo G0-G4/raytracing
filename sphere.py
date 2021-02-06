@@ -7,11 +7,13 @@ later create base class figure
 
 class sphere:
 
-    def __init__(self, origin: point = point(0,0,0), radius: float = 1.):
+    def __init__(self, origin: point = point(0,0,0), radius: float = 1.,
+        transform = np.identity(4)) ->'sphere':
         self.origin = origin
         self.radius = radius
+        self.transform = transform
 
-    def __intersect__(self, ray: ray):
+    def __intersect__(self, ray: ray) -> tuple:
         sphere_to_ray = ray.origin - self.origin
         a = dot(ray.direction, ray.direction)
         b = 2 * dot(ray.direction, sphere_to_ray)
