@@ -1,5 +1,5 @@
 import numpy as np
-
+from numba import njit
 
 '''
 functions for creating points and vector ( both are np.arrays with different 4th component)
@@ -9,18 +9,23 @@ and functions for processing them
 "np.array" as it is, but mimmicking creation of point and vector by using simple factory functions)
 '''
 
+@njit()
 def equal(a: float, b: float, eps: float = 0.001) -> bool:
     return abs(a - b) < eps
 
+@njit()
 def magnitude(x: np.array) -> float:
     return np.sqrt(x.dot(x))
-
+    
+@njit()
 def normalize(x: np.array) -> np.array:
     return x/magnitude(x)
 
+@njit()
 def dot(x: np.array, y: np.array) -> np.array:
     return x.dot(y)
 
+@njit()
 def cross(x: np.array, y: np.array) -> np.array:
     tmp = np.cross(x[:-1],(y[:-1]))
     return np.append(tmp,0.)
@@ -34,6 +39,7 @@ def vector(x: float, y: float, z: float, w: float = 0.) -> np.array:
     # return np.array([[x, y, z, w]], float).T  # vector is a vector column
     return np.array([x, y, z, w], float)
 
+
 def translation(x: float, y: float, z: float) -> np.array:
     tmp = np.identity(4, float)
     tmp[0][3] = x
@@ -41,8 +47,9 @@ def translation(x: float, y: float, z: float) -> np.array:
     tmp[2][3] = z
     return tmp
 
+@njit()
 def mult(m1: np.array, m2: np.array) -> np.array:
-    return np.matmul(m1, m2)
+    return m1 @ m2
 
 def scaling(x: float, y: float, z: float) -> np.array:
     return np.diag([x, y, z, 1.])

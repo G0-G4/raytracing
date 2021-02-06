@@ -2,12 +2,12 @@ from ray import *
 from sphere import sphere
 from intersect import *
 import pygame as pg
+import timeit
+
+start = timeit.default_timer()
 
 
-
-    
-
-scrWIDTH, scrHEIGHT = 300, 300
+scrWIDTH, scrHEIGHT =700, 700
 
 # change coords from (-1, 1) to screen coords
 def coords(x, y, w = scrWIDTH, h = scrHEIGHT):
@@ -44,4 +44,8 @@ for y in range(scrHEIGHT):
 
 pg.display.flip()
 pg.image.save(screen, 'fstrender.bmp')
-input()
+
+
+stop = timeit.default_timer()
+
+print('Time: ', stop - start) 

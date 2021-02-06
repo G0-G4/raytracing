@@ -1,6 +1,6 @@
 from structures import *
 from ray import *  # delete later just for hints from ide
-
+from numba import njit
 '''
 later create base class figure
 '''
