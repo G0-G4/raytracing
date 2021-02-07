@@ -13,11 +13,6 @@ class intersection:
 class intersections(list):
     pass
 
-
-@njit()
-def inverse(arr):
-    return np.linalg.inv(arr)
-
 def intersect(fig, r: ray) -> intersections:
     r = r.transform(inverse(fig.transform))
     return intersections([intersection(i, fig) for i in fig.__intersect__(r)])

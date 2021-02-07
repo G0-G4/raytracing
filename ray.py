@@ -21,3 +21,4 @@ class ray:
 
     def transform(self, matr: np.array) -> 'ray':
         return ray(mult(matr, self.origin), mult(matr, self.direction))
+

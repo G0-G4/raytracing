@@ -1,6 +1,7 @@
 from structures import *
 from ray import *  # delete later just for hints from ide
 from numba import njit
+from material import *
 '''
 later create base class figure
 '''
@@ -8,10 +9,11 @@ later create base class figure
 class sphere:
 
     def __init__(self, origin: point = point(0,0,0), radius: float = 1.,
-        transform = np.identity(4)) ->'sphere':
+        transform = np.identity(4), material: material = material() ) ->'sphere':
         self.origin = origin
         self.radius = radius
         self.transform = transform
+        self.material = material
 
     def __intersect__(self, ray: ray) -> tuple:
         sphere_to_ray = ray.origin - self.origin
@@ -24,3 +26,9 @@ class sphere:
         t1 = (-b + np.sqrt(discriminant)) / (2 * a)
         t2 = (-b - np.sqrt(discriminant)) / (2 * a)
         return t1, t2
+
+    def normal_at(self, world_point: point) -> vector:
+        obj_point = mult(inverse(self.transform), world_point)
+        obj_normal = obj_point - self.origin
+        world_normal = mult(transpose(inverse(self.transform)), obj_normal)
+        return normalize(world_normal)

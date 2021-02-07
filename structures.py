@@ -85,3 +85,15 @@ def shearing(xy: float, xz: float, yx: float, yz: float, zx: float, zy: float) -
     tmp[2][0] = zx
     tmp[2][1] = zy
     return tmp
+
+@njit()
+def inverse(arr):
+    return np.linalg.inv(arr)
+
+@njit
+def transpose(arr):
+    return np.transpose(arr)
+
+@njit
+def reflect(inn: vector, n: vector) -> np.array:
+    return inn - 2 * n * dot(inn, n)
