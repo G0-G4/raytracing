@@ -97,3 +97,7 @@ def transpose(arr):
 @njit
 def reflect(inn: vector, n: vector) -> np.array:
     return inn - 2 * n * dot(inn, n)
+
+
+def normal_at(obj, point: point):
+    return obj.__normal_at__(point)

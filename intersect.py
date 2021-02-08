@@ -18,7 +18,15 @@ def intersect(fig, r: ray) -> intersections:
     return intersections([intersection(i, fig) for i in fig.__intersect__(r)])
 
 
-def hit(inters: intersections):
+def intersectworld(w, r: ray) -> intersections:
+    xs = intersections()
+    for obj in w.objects:
+        xs.extend(intersect(obj, r))
+    return intersections(sorted(xs, key = lambda x: x.t))
+
+
+def hit(inters: intersections) ->intersection:
+    # сортировку можно будет убрать, тк подаются уже отсортированные
     for i in sorted(inters, key = lambda x: x.t):
         if i.t >=0:
             return i

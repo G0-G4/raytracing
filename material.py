@@ -14,5 +14,4 @@ class material:
     
 
 def color(arr: np.array):
-
     return min(255,int(arr[0]*255)), min(255,int(arr[1]*255)), min(255,int(arr[2]*255))

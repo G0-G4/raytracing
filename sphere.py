@@ -27,7 +27,7 @@ class sphere:
         t2 = (-b - np.sqrt(discriminant)) / (2 * a)
         return t1, t2
 
-    def normal_at(self, world_point: point) -> vector:
+    def __normal_at__(self, world_point: point) -> vector:
         obj_point = mult(inverse(self.transform), world_point)
         obj_normal = obj_point - self.origin
         world_normal = mult(transpose(inverse(self.transform)), obj_normal)
