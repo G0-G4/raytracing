@@ -150,4 +150,9 @@ dmypy.json
 !.vscode/extensions.json
 *.code-workspace
 
+.vscode/
+image.png
+scndrender.bmp
+
+
 # End of https://www.toptal.com/developers/gitignore/api/vscode,python
