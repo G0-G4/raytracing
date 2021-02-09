@@ -6,16 +6,16 @@ from material import *
 later create base class figure
 '''
 
-class sphere:
+class Sphere:
 
-    def __init__(self, origin: point = point(0,0,0), radius: float = 1.,
-        transform = np.identity(4), material: material = material() ) ->'sphere':
+    def __init__(self, origin: Point = Point(0,0,0), radius: float = 1.,
+        transform = np.identity(4), material: Material = Material() ) ->'Sphere':
         self.origin = origin
         self.radius = radius
         self.transform = transform
         self.material = material
 
-    def __intersect__(self, ray: ray) -> tuple:
+    def __intersect__(self, ray: Ray) -> tuple:
         sphere_to_ray = ray.origin - self.origin
         a = dot(ray.direction, ray.direction)
         b = 2 * dot(ray.direction, sphere_to_ray)
@@ -27,7 +27,7 @@ class sphere:
         t2 = (-b - np.sqrt(discriminant)) / (2 * a)
         return t1, t2
 
-    def __normal_at__(self, world_point: point) -> vector:
+    def __normal_at__(self, world_point: Point) -> Vector:
         obj_point = mult(inverse(self.transform), world_point)
         obj_normal = obj_point - self.origin
         world_normal = mult(transpose(inverse(self.transform)), obj_normal)

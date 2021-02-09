@@ -2,11 +2,11 @@ import numpy as np
 from numba import njit
 
 '''
-functions for creating points and vector ( both are np.arrays with different 4th component)
+functions for creating points and Vector ( both are np.arrays with different 4th component)
 and functions for processing them
 
 (I could have used "np.array" as a parent class, but there are some difficulties with it, so i decided to use 
-"np.array" as it is, but mimmicking creation of point and vector by using simple factory functions)
+"np.array" as it is, but mimmicking creation of Point and Vector by using simple factory functions)
 '''
 
 @njit()
@@ -31,12 +31,12 @@ def cross(x: np.array, y: np.array) -> np.array:
     return np.append(tmp,0.)
 
 
-def point(x: float, y: float, z: float, w: float = 1.) -> np.array:
-    # return np.array([[x, y, z, w]], float).T  # point is a vector column
+def Point(x: float, y: float, z: float, w: float = 1.) -> np.array:
+    # return np.array([[x, y, z, w]], float).T  # Point is a Vector column
     return np.array([x, y, z, w], float)
 
-def vector(x: float, y: float, z: float, w: float = 0.) -> np.array:
-    # return np.array([[x, y, z, w]], float).T  # vector is a vector column
+def Vector(x: float, y: float, z: float, w: float = 0.) -> np.array:
+    # return np.array([[x, y, z, w]], float).T  # Vector is a Vector column
     return np.array([x, y, z, w], float)
 
 
@@ -95,9 +95,23 @@ def transpose(arr):
     return np.transpose(arr)
 
 @njit
-def reflect(inn: vector, n: vector) -> np.array:
+def reflect(inn: Vector, n: Vector) -> Vector:
     return inn - 2 * n * dot(inn, n)
 
 
-def normal_at(obj, point: point):
+def normal_at(obj, point: Point):
     return obj.__normal_at__(point)
+
+def view_transform(fr: np.array, to: np.array, up: np.array):
+    forward = normalize(to - fr)
+    left = cross(forward, normalize(up))
+    true_up = cross(left, forward)
+    orientation = np.array([
+        [left[0],     left[1],    left[2],      0.],
+        [true_up[0],  true_up[1], true_up[2],   0.],
+        [-forward[0], -forward[1], -forward[2], 0.],
+        [0.,          0.,          0.,          1.]
+    ])
+    return mult(orientation, translation(-fr[0], -fr[1], -fr[2]))
+
+

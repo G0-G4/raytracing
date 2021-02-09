@@ -1,7 +1,6 @@
 from lights import *
-class world:
+class World:
 
-    def __init__(self, light = pointlight(), objects = []):
+    def __init__(self, light = Pointlight(), objects = []):
         self.light = light
         self.objects = objects
-    

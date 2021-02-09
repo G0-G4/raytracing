@@ -1,31 +1,31 @@
 from structures import *
 
 '''
-"point" and "vector" are not real classes, they are functions
+"point" and "Vector" are not real classes, they are functions
 wich create necessary np.arrays
 '''
 
 
-class ray:
+class Ray:
     '''
     really point is not a type, it is an np.array, but it is created with "point" function
-    same with vector
+    same with Vector
     '''
-    def __init__(self, origin: point, direction: vector) -> 'ray':
+    def __init__(self, origin: Point, direction: Vector) -> 'Ray':
         self.origin = origin
         self.direction = direction
     
-    def position(self, t: float) -> point:
-        return self.origin + t*self.direction
+    def position(self, t: float) -> Point:
+        return self.origin + t * self.direction
 
 
-    def transform(self, matr: np.array) -> 'ray':
-        return ray(mult(matr, self.origin), mult(matr, self.direction))
+    def transform(self, matr: np.array) -> 'Ray':
+        return Ray(mult(matr, self.origin), mult(matr, self.direction))
 
 
-class prepare_computations:
+class Prepare_computations:
 
-    def __init__(self, i: 'intersection', r: ray):
+    def __init__(self, i: 'Intersection', r: Ray):
 
         self.t = i.t
         self.object = i.object
